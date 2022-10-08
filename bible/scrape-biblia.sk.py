@@ -23,7 +23,7 @@ for i, book in enumerate(books):
         code = '|'.join([identifier, abbr, str(chapter)])
         code = binascii.b2a_base64(code.encode()).strip().decode()
         while True:
-            res = requests.get('https://biblia.sk/api/text/%s' % (code, ), params=params)
+            res = requests.get(f'https://biblia.sk/api/text/{code}', params=params)
             print(res.status_code, res.url)
             if res.status_code == 429:
                 print('Too Many Requests, sleeping')
@@ -39,5 +39,5 @@ for i, book in enumerate(books):
     book['chapters'] = chapters
     print(chapters)
 
-with open(identifier+'.json', 'w') as f:
+with open(f'{identifier}.json', 'w') as f:
     json.dump(preklad, f, indent=2)
